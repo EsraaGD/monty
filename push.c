@@ -6,17 +6,18 @@
  * @line_number: ln of op
  */
 
-void push(stack_t **stack, unsigned int line_number)
+void push(stack_t **stack, unsigned int line_number, char *input)
 {
 	int num = atoi(input);
+	stack_t *new_node;
 
-	if (num == && strcmp(input, "0") != 0)
+	if (num == 0 && strcmp(input, "0") != 0)
 	{
 		fprintf(stderr, "L%d: usage: push integer", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	stack_t *new_node = malloc(sizeof(stack_t));
+	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
 	{
 		fprintf(stderr, "Memory allocation error\n");
