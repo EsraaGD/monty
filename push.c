@@ -6,8 +6,9 @@
  * @line_number: ln of op
  */
 
-void push(stack_t **stack, unsigned int line_number, char *input)
+void push(stack_t **stack, unsigned int line_number)
 {
+	char *input = data_t.input;
 	int num = atoi(input);
 	stack_t *new_node;
 
