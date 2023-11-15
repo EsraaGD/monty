@@ -64,5 +64,6 @@ void nop(stack_t **stack, unsigned int line_number);
 
 void exec_op(char *opcode, stack_t **stack, unsigned int line_number);
 void exec_file(char *opcode, stack_t **stack, unsigned int line_number);
+void free_me(stack_t **stack);
 
 #endif

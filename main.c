@@ -10,6 +10,7 @@
 int main(int argc, char *argv[])
 {
 	stack_t *stack = NULL;
+	unsigned int line_number = 0;
 
 	if (argc != 2)
 	{
@@ -17,15 +18,16 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	if (FILE == NULL,not able to open file)
-	{
-		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-		exit(EXIT_FAILURE);
-	}
+	data_t.input = argv[1];
+	data_t.file = fopen(data_t.input, "r");
 
-	if (can't malloc)
+	if (data_t.file == NULL)
 	{
-		fprintf(stderr, "Error: malloc failed\n");
+		fprintf(stderr, "Error: Can't open file %s\n", data_t.input);
 		exit(EXIT_FAILURE);
 	}
+	fclose(data_t.file);
+	exec_file(argv[1], &stack, line_number);
+	free_me(&stack);
+	return (0);
 }
