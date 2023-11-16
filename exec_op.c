@@ -43,17 +43,21 @@ void exec_op(char *opcode, stack_t **stack, unsigned int line_number)
 
 void exec_file(stack_t **stack)
 {
+	size_t len = 0;
+	ssize_t nread;
 	char *opcode = NULL;
-	char *line = data.input;
 	unsigned int line_number = 0;
+	data.input = NULL;
 
-	while ((opcode = strtok(line, " \t\r\n\a")) != NULL)
+	while ((nread = getline(&data.input, &len, data.file)) != -1)
 	{
 		line_number++;
-		data.val = strtok(line, " \n\t");
-		if (*opcode != '#')
-			exec_op(opcode, stack, line_number);
+		opcode = strtok(data.input, " \t");
+		data.val = strtok(NULL, " \n\t");
 
-		line = NULL;
+		if (opcode == NULL || data.val == NULL || *opcode == '#')
+			continue;
+		exec_op(opcode, stack, line_number);
 	}
+	free(data.input);
 }
