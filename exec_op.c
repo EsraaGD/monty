@@ -30,6 +30,8 @@ void exec_op(char *opcode, stack_t **stack, unsigned int line_number)
 		}
 		q++;
 	}
+	fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
+	exit(EXIT_FAILURE);
 }
 
 /**
@@ -39,31 +41,16 @@ void exec_op(char *opcode, stack_t **stack, unsigned int line_number)
  * @line_number: line number in file
  */
 
-void exec_file(char *opcode, stack_t **stack, unsigned int line_number)
+void exec_file(stack_t **stack)
 {
-	int isthere = 0;
-	int q = 0;
-	instruction_t instruction[] = {NULL};
+	char *opcode = NULL;
+	unsigned int line_number = 0;
 
-	strtok(NULL, " \n\t");
-
-	if (opcode == NULL || *opcode == '#')
-		return;
-
-	while (instruction[q].opcode != NULL)
+	while ((opcode = strtok(NULL, " \t\r\n\a")) != NULL)
 	{
-		if (strcmp(opcode, instruction[q].opcode) == 0)
-		{
-			isthere = 1;
-			instruction[q].f(stack, line_number);
-			return;
-		}
-		q++;
+		line_number++;
+		data.val = strtok(NULL, " \n\t");
+		if (*opcode != '#')
+			exec_op(opcode, stack, line_number);
 	}
-
-		if (!isthere)
-		{
-			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
-			exit(EXIT_FAILURE);
-		}
 }

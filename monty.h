@@ -44,16 +44,17 @@ typedef struct instruction_s
  * @file: ptr to monty
  */
 
-struct data
+typedef struct
 {
 	char *val;
 	char *input;
 	FILE *file;
 } data_t;
 
-extern struct data data_t;
+extern data_t data;
 
 /** Prototypes**/
+int main(int argc, char **argv);
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
@@ -63,7 +64,7 @@ void add(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
 
 void exec_op(char *opcode, stack_t **stack, unsigned int line_number);
-void exec_file(char *opcode, stack_t **stack, unsigned int line_number);
+void exec_file(stack_t **stack);
 void free_me(stack_t **stack);
 
 #endif

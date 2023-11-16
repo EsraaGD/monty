@@ -8,7 +8,7 @@
 
 void push(stack_t **stack, unsigned int line_number)
 {
-	char *input = data_t.input;
+	char *input = data.input;
 	int num = atoi(input);
 	stack_t *new_node;
 

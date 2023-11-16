@@ -10,7 +10,11 @@
 int main(int argc, char *argv[])
 {
 	stack_t *stack = NULL;
-	unsigned int line_number = 0;
+	data_t data;
+
+	data.val = NULL;
+	data.input = argv[1];
+	data.file = fopen(data.input, "r");
 
 	if (argc != 2)
 	{
@@ -18,16 +22,14 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	data_t.input = argv[1];
-	data_t.file = fopen(data_t.input, "r");
-
-	if (data_t.file == NULL)
+	if (data.file == NULL)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", data_t.input);
+		fprintf(stderr, "Error: Can't open file %s\n", data.input);
 		exit(EXIT_FAILURE);
 	}
-	fclose(data_t.file);
-	exec_file(argv[1], &stack, line_number);
+
+	exec_file(&stack);
 	free_me(&stack);
-	return (0);
+	fclose(data.file);
+	exit(EXIT_SUCCESS);
 }
