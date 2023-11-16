@@ -1,5 +1,6 @@
 #ifndef MONTY_H
 #define MONTY_H
+#define _GNU_SOURCE
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -38,13 +39,13 @@ typedef struct instruction_s
 /*MY STRUCT*/
 
 /**
- * struct data - data types
+ * struct data_s - data types
  * @val: value
  * @input: input line
  * @file: ptr to monty
  */
 
-typedef struct
+typedef struct data_s
 {
 	char *val;
 	char *input;
@@ -67,4 +68,4 @@ void exec_op(char *opcode, stack_t **stack, unsigned int line_number);
 void exec_file(stack_t **stack);
 void free_me(stack_t **stack);
 
-#endif
+#endif /* MONTY_H */

@@ -6,12 +6,13 @@
 
 void free_me(stack_t **stack)
 {
-	stack_t *current;
+	stack_t *current, *ne_node;
 
-	for (current = *stack; current != NULL;)
+	for (current = *stack; current != NULL; current = ne_node)
 	{
-		*stack = current->next;
+		ne_node = current->next;
 		free(current);
-		current = *stack;
 	}
+
+	*stack = NULL;
 }

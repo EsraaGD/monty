@@ -8,8 +8,7 @@
 
 void pall(stack_t **stack, unsigned int line_number)
 {
-	stack_t *node;
-	node = *stack;
+	stack_t *node = *stack;
 
 	while (node != NULL)
 	{
@@ -22,5 +21,3 @@ void pall(stack_t **stack, unsigned int line_number)
 	if (*stack == NULL)
 		return;
 }
-
-/*for (stack_t *current = *stack; current != NULL; current = current->next)*/

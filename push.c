@@ -8,8 +8,8 @@
 
 void push(stack_t **stack, unsigned int line_number)
 {
-	char *input = data.input;
-	int num = atoi(input);
+	const char *input = data.input;
+	int num = 0;
 	stack_t *new_node;
 
 	if (num == 0 && strcmp(input, "0") != 0)
@@ -17,6 +17,8 @@ void push(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "L%d: usage: push integer", line_number);
 		exit(EXIT_FAILURE);
 	}
+
+	num = atoi(input);
 
 	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
@@ -26,6 +28,13 @@ void push(stack_t **stack, unsigned int line_number)
 	}
 
 	new_node->n = num;
+	new_node->prev = NULL;
 	new_node->next = *stack;
+
+	if (*stack != NULL)
+	{
+		(*stack)->prev = new_node;
+	}
+
 	*stack = new_node;
 }
