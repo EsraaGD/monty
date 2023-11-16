@@ -44,13 +44,16 @@ void exec_op(char *opcode, stack_t **stack, unsigned int line_number)
 void exec_file(stack_t **stack)
 {
 	char *opcode = NULL;
+	char *line = data.input;
 	unsigned int line_number = 0;
 
-	while ((opcode = strtok(NULL, " \t\r\n\a")) != NULL)
+	while ((opcode = strtok(line, " \t\r\n\a")) != NULL)
 	{
 		line_number++;
-		data.val = strtok(NULL, " \n\t");
+		data.val = strtok(line, " \n\t");
 		if (*opcode != '#')
 			exec_op(opcode, stack, line_number);
+
+		line = NULL;
 	}
 }
