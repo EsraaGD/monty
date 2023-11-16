@@ -1,5 +1,7 @@
 #include "monty.h"
 
+data_t data = {NULL, NULL, NULL};
+
 /**
  * main - entry point
  * @argc: # of command line arguments
@@ -10,11 +12,7 @@
 int main(int argc, char *argv[])
 {
 	stack_t *stack = NULL;
-	data_t data;
-
-	data.val = NULL;
-	data.input = argv[1];
-	data.file = fopen(data.input, "r");
+	FILE *file;
 
 	if (argc != 2)
 	{
@@ -22,14 +20,16 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	if (data.file == NULL)
+	file = fopen(argv[1], "r");
+
+	if (file == NULL)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", data.input);
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
 
 	exec_file(&stack);
 	free_me(&stack);
-	fclose(data.file);
+	fclose(file);
 	exit(EXIT_SUCCESS);
 }
