@@ -70,4 +70,6 @@ void exec_file(stack_t **stack);
 void free_me(stack_t **stack);
 
 void print_stack(stack_t *stack);
+stack_t *add_node(stack_t **stack, int num);
+
 #endif /* MONTY_H */

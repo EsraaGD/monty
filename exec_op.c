@@ -77,6 +77,7 @@ void exec_file(stack_t **stack)
 		data.val = strtok(NULL, " \t\n");
 
 		exec_op(opcode, stack, line_number);
+		line_number++;
 
 		free(input_copy);
 	}
