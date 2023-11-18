@@ -17,7 +17,7 @@ void push(stack_t **stack, unsigned int line_number)
 
 	printf("Input: '%s'\n", input);
 
-	if (*input == '\0' || sscanf(input, "push %d", &num) != 1)
+	if (*input == '\0' || strncmp(input, "push", 4) != 0 || sscanf(input,"push  %d", &num) != 1)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);

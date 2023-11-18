@@ -40,11 +40,11 @@ void exec_op(char *opcode, stack_t **stack, unsigned int line_number)
  * Return: void
  */
 
+void exec_file(stack_t **stack);
 void exec_file(stack_t **stack)
 {
 	size_t len = 0;
 	ssize_t nread;
-	char *opcode = NULL;
 	unsigned int line_number = 0;
 
 	if (data.file == NULL)
@@ -53,19 +53,33 @@ void exec_file(stack_t **stack)
 		exit(EXIT_FAILURE);
 	}
 
-	data.input = NULL;
-
 	while ((nread = getline(&data.input, &len, data.file)) != -1)
 	{
-		line_number++;
+		char *input_copy = strdup(data.input);
+		char *temp;
+		char *opcode;
 
-		opcode = strtok(data.input, " \t\n");
+		if (input_copy == NULL)
+		{
+			fprintf(stderr, "Error: Memory allocation error\n");
+			exit(EXIT_FAILURE);
+		}
+
+		temp = input_copy;
+		opcode = strtok(temp, " \t\n");
+
 		if (opcode == NULL || *opcode == '#')
+		{
+			free(input_copy);
 			continue;
+		}
 
 		data.val = strtok(NULL, " \t\n");
 
 		exec_op(opcode, stack, line_number);
+
+		free(input_copy);
 	}
+
 	free(data.input);
 }
