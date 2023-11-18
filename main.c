@@ -28,6 +28,8 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
+	data.file = file;
+
 	exec_file(&stack);
 	free_me(&stack);
 	fclose(file);

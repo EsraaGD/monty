@@ -12,13 +12,20 @@ void push(stack_t **stack, unsigned int line_number)
 	int num = 0;
 	stack_t *new_node;
 
-	if (num == 0 && strcmp(input, "0") != 0)
+	while (*input && (*input == ' ' || *input == '\t'))
+		input++;
+
+	printf("Input: '%s'\n", input);
+
+	if (*input == '\0' || sscanf(input, "push %d", &num) != 1)
 	{
-		fprintf(stderr, "L%d: usage: push integer", line_number);
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
 	num = atoi(input);
+
+	printf("Pushing %d to stack\n", num);
 
 	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
@@ -37,4 +44,7 @@ void push(stack_t **stack, unsigned int line_number)
 	}
 
 	*stack = new_node;
+
+	printf("Stack after push:\n");
+	print_stack(*stack);
 }

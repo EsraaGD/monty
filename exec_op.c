@@ -47,14 +47,24 @@ void exec_file(stack_t **stack)
 	char *opcode = NULL;
 	unsigned int line_number = 0;
 
+	if (data.file == NULL)
+	{
+		fprintf(stderr, "Error: File pointer is NULL\n");
+		exit(EXIT_FAILURE);
+	}
+
+	data.input = NULL;
+
 	while ((nread = getline(&data.input, &len, data.file)) != -1)
 	{
 		line_number++;
-		opcode = strtok(data.input, " \t\n");
-		data.val = strtok(NULL, " \t\n");
 
+		opcode = strtok(data.input, " \t\n");
 		if (opcode == NULL || *opcode == '#')
 			continue;
+
+		data.val = strtok(NULL, " \t\n");
+
 		exec_op(opcode, stack, line_number);
 	}
 	free(data.input);
