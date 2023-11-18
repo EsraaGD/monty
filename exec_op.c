@@ -36,9 +36,8 @@ void exec_op(char *opcode, stack_t **stack, unsigned int line_number)
 
 /**
  * exec_file - Process the lines
- * @opcode: ptr to string representing opcode
  * @stack: ptr to ptr to top of stack
- * @line_number: line number in file
+ * Return: void
  */
 
 void exec_file(stack_t **stack)
@@ -47,15 +46,14 @@ void exec_file(stack_t **stack)
 	ssize_t nread;
 	char *opcode = NULL;
 	unsigned int line_number = 0;
-	data.input = NULL;
 
 	while ((nread = getline(&data.input, &len, data.file)) != -1)
 	{
 		line_number++;
-		opcode = strtok(data.input, " \t");
-		data.val = strtok(NULL, " \n\t");
+		opcode = strtok(data.input, " \t\n");
+		data.val = strtok(NULL, " \t\n");
 
-		if (opcode == NULL || data.val == NULL || *opcode == '#')
+		if (opcode == NULL || *opcode == '#')
 			continue;
 		exec_op(opcode, stack, line_number);
 	}
